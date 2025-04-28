@@ -22,7 +22,7 @@ const GenerateProgramPage = () => {
   // SOLUTION to get rid of "Meeting has ended" error
   useEffect(() => {
     const originalError = console.error;
-    // override console.error to ignore "Meeting has ended" errors
+
     console.error = function (msg, ...args) {
       if (
         msg &&
@@ -30,27 +30,27 @@ const GenerateProgramPage = () => {
           (args[0] && args[0].toString().includes("Meeting has ended")))
       ) {
         console.log("Ignoring known error: Meeting has ended");
-        return; // don't pass to original handler
+        return; 
       }
 
-      // pass all other errors to the original handler
+      
       return originalError.call(console, msg, ...args);
     };
 
-    // restore original handler on unmount
+   
     return () => {
       console.error = originalError;
     };
   }, []);
 
-  // auto-scroll messages
+
   useEffect(() => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
-  // navigate user to profile page after the call ends
+  
   useEffect(() => {
     if (callEnded) {
       const redirectTimer = setTimeout(() => {
@@ -61,7 +61,7 @@ const GenerateProgramPage = () => {
     }
   }, [callEnded, router]);
 
-  // setup event listeners for vapi
+
   useEffect(() => {
     const handleCallStart = () => {
       console.log("Call started");
@@ -148,7 +148,7 @@ const GenerateProgramPage = () => {
   return (
     <div className="flex flex-col min-h-screen text-foreground overflow-hidden  pb-6 pt-24">
       <div className="container mx-auto px-4 h-full max-w-5xl">
-        {/* Title */}
+      
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold font-mono">
             <span>Generate Your </span>
@@ -159,18 +159,18 @@ const GenerateProgramPage = () => {
           </p>
         </div>
 
-        {/* VIDEO CALL AREA */}
+      
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          {/* AI ASSISTANT CARD */}
+  
           <Card className="bg-card/90 backdrop-blur-sm border border-border overflow-hidden relative">
             <div className="aspect-video flex flex-col items-center justify-center p-6 relative">
-              {/* AI VOICE ANIMATION */}
+         
               <div
                 className={`absolute inset-0 ${
                   isSpeaking ? "opacity-30" : "opacity-0"
                 } transition-opacity duration-300`}
               >
-                {/* Voice wave animation when speaking */}
+               
                 <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 flex justify-center items-center h-20">
                   {[...Array(5)].map((_, i) => (
                     <div
@@ -187,7 +187,6 @@ const GenerateProgramPage = () => {
                 </div>
               </div>
 
-              {/* AI IMAGE */}
               <div className="relative size-32 mb-4">
                 <div
                   className={`absolute inset-0 bg-primary opacity-10 rounded-full blur-lg ${
@@ -208,7 +207,7 @@ const GenerateProgramPage = () => {
               <h2 className="text-xl font-bold text-foreground">CodeFlex AI</h2>
               <p className="text-sm text-muted-foreground mt-1">Fitness & Diet Coach</p>
 
-              {/* SPEAKING INDICATOR */}
+           
 
               <div
                 className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border border-border ${
@@ -234,10 +233,10 @@ const GenerateProgramPage = () => {
             </div>
           </Card>
 
-          {/* USER CARD */}
+         
           <Card className={`bg-card/90 backdrop-blur-sm border overflow-hidden relative`}>
             <div className="aspect-video flex flex-col items-center justify-center p-6 relative">
-              {/* User Image */}
+            
               <div className="relative size-32 mb-4">
                 <img
                   src={user?.imageUrl}
@@ -252,7 +251,7 @@ const GenerateProgramPage = () => {
                 {user ? (user.firstName + " " + (user.lastName || "")).trim() : "Guest"}
               </p>
 
-              {/* User Ready Text */}
+             
               <div className={`mt-4 flex items-center gap-2 px-3 py-1 rounded-full bg-card border`}>
                 <div className={`w-2 h-2 rounded-full bg-muted`} />
                 <span className="text-xs text-muted-foreground">Ready</span>
@@ -261,7 +260,7 @@ const GenerateProgramPage = () => {
           </Card>
         </div>
 
-        {/* MESSAGE COINTER  */}
+       
         {messages.length > 0 && (
           <div
             ref={messageContainerRef}
@@ -289,7 +288,7 @@ const GenerateProgramPage = () => {
           </div>
         )}
 
-        {/* CALL CONTROLS */}
+    
         <div className="w-full flex justify-center gap-4">
           <Button
             className={`w-40 text-xl rounded-3xl ${
