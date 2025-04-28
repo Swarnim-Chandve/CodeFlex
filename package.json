@@ -16,6 +16,7 @@
     "@radix-ui/react-tabs": "^1.1.9",
     "@swc/helpers": "^0.5.17",
     "@vapi-ai/web": "^2.2.6",
+    "@vercel/analytics": "^1.5.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "convex": "^1.23.0",
